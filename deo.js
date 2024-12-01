@@ -147,10 +147,10 @@ const compactCode = escodegen.generate(ast, {
 const links = ['compactdeobfuscated.js', 'deobfuscated.js'];
 links
     .forEach((object) => {
-        fs.rmSync(object, {force: true})
+        fs.rmSync(`./cleaned/${object}`, {force: true})
     });
 
-fs.writeFileSync('compactdeobfuscated.js', compactCode, 'utf8');
-fs.writeFileSync('deobfuscated.js', deobfuscatedCode, 'utf8');
+fs.writeFileSync('./cleaned/compactdeobfuscated.js', compactCode, 'utf8');
+fs.writeFileSync('./cleaned/deobfuscated.js', deobfuscatedCode, 'utf8');
 
 //fs.writeFileSync('output.json', JSON.stringify(ast, null, 2), 'utf-8');
