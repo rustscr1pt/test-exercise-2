@@ -59,66 +59,88 @@ function my_ast_wrapper(ast) {
                 }
             }
 
-            if (node.type === 'WhileStatement') {
-
-                // Find the body of the while loop (the statements inside the loop)
-                const body = node.body.body;
-
-                // Find the calculation of _0x4bbcbd (variable assignment)
-                const calcStatement = body.find((stmt) => stmt.type === 'VariableDeclaration');
-
-                if (!calcStatement) return node; // Avoid errors if no calculation is found
-
-                // Create the new if statement
-                const ifStatement = {
-                    type: 'IfStatement',
-                    test: {
-                        type: 'BinaryExpression',
-                        operator: '===',
-                        left: { type: 'Identifier', name: '_0x4bbcbd' },
-                        right: { type: 'Identifier', name: '_0x592d2b' }
-                    },
-                    consequent: {
-                        type: 'BlockStatement',
-                        body: [{
-                            type: 'ReturnStatement',
-                            argument: null
-                        }]
-                    },
-                    alternate: {
-                        type: 'BlockStatement',
-                        body: [{
-                            type: 'ExpressionStatement',
-                            expression: {
-                                type: 'CallExpression',
-                                callee: {
-                                    type: 'MemberExpression',
-                                    object: { type: 'Identifier', name: '_0x5c2e75' },
-                                    property: { type: 'Identifier', name: 'push' },
-                                    computed: false
-                                },
-                                arguments: [{
-                                    type: 'CallExpression',
-                                    callee: {
-                                        type: 'MemberExpression',
-                                        object: { type: 'Identifier', name: '_0x5c2e75' },
-                                        property: { type: 'Identifier', name: 'shift' },
-                                        computed: false
-                                    },
-                                    arguments: []
-                                }]
-                            }
-                        }]
+            if (node.type === 'ExpressionStatement') {
+                console.log(node);
+                if (node.expression.callee) {
+                    console.log(node.expression.callee);
+                    if (node.expression.callee.type && node.expression.callee.type === 'FunctionExpression') {
+                        let simplifiedValue = 12345; // The simplified calculated value
+                        console.log('!!!!!!!!');
+                        console.log(node.expression.callee.body);
+                        // Replace the while loop with a simplified one
+                        node.expression.callee.body.body = node.expression.callee.body.body.map(statement => {
+                            if (statement.type === 'WhileStatement') {
+                                console.log('Found');
+                                return {
+                                    type: 'WhileStatement',
+                                    test: {
+                                        type: 'BinaryExpression',
+                                        operator: '===',
+                                        left: { type: 'Identifier', name: '_0x4bbcbd' },
+                                        right: {
+                                            type: 'Identifier',
+                                            name: '_0x592d2b'
+                                        }},
+                                        body: {
+                                        type: 'BlockStatement',
+                                            body: [{
+                                                type: 'ExpressionStatement',
+                                                expression: {
+                                                    type: 'AssignmentExpression',
+                                                    operator: '=',
+                                                    left: { type: 'Identifier', name: '_0x4bbcbd' },
+                                                    right: { type: 'Literal', value: simplifiedValue }
+                                                }
+                                            }, {
+                                                type: 'ReturnStatement',
+                                                argument: null
+                                            }]
+                                        }
+                                    };
+                                }
+                                return statement;
+                            });
                     }
-                };
-
-                // Replace the while loop with the new statements
-                node.body = {
-                    type: 'BlockStatement',
-                    body: [calcStatement, ifStatement]
-                };
+                }
             }
 
+            // if (node.type === 'FunctionDeclaration' && node.body.body.length > 0) {
+            //     let simplifiedValue = 12345; // The simplified calculated value
+            //     // Replace the while loop with a simplified one
+            //     node.body.body = node.body.body.map(statement => {
+            //         if (statement.type === 'WhileStatement') {
+            //             console.log('Found');
+            //             return {
+            //                 type: 'WhileStatement',
+            //                 test: {
+            //                     type: 'BinaryExpression',
+            //                     operator: '===',
+            //                     left: { type: 'Identifier', name: '_0x4bbcbd' },
+            //                     right: {
+            //                         type: 'Identifier',
+            //                         name: '_0x592d2b'
+            //                     }
+            //                 },
+            //                 body: {
+            //                     type: 'BlockStatement',
+            //                     body: [{
+            //                         type: 'ExpressionStatement',
+            //                         expression: {
+            //                             type: 'AssignmentExpression',
+            //                             operator: '=',
+            //                             left: { type: 'Identifier', name: '_0x4bbcbd' },
+            //                             right: { type: 'Literal', value: simplifiedValue }
+            //                         }
+            //                     }, {
+            //                         type: 'ReturnStatement',
+            //                         argument: null
+            //                     }]
+            //                 }
+            //             };
+            //         }
+            //         return statement;
+            //     });
+            // }
             return node;
         }
     });

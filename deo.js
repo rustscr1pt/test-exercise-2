@@ -143,7 +143,7 @@ walk.traverse(ast, {
     },
 });
 
-writeAstToFile(ast);
+//writeAstToFile(ast);
 
 const ast_wrapper = my_ast_wrapper(ast);
 
