@@ -2,16 +2,13 @@ const esprima = require('esprima');
 const fs = require('fs');
 const walk = require('estraverse');
 const escodegen = require('escodegen');
+const my_ast_wrapper = require("./deo_wrapper");
 
 const obfuscated = fs.readFileSync('original.js', "utf-8");
 const ast = esprima.parseScript(obfuscated);
 
 const constants = {};
 const arrays = {};
-
-function decodeBase64(str) {
-    return Buffer.from(str, 'base64').toString('utf-8');
-}
 
 function handleSelfAssignment(node) {
     if (node.type === 'ExpressionStatement' && node.expression.type === 'AssignmentExpression') {
@@ -42,6 +39,17 @@ function handleIfStatements(node) {
         } else {
             return node.alternate || { type: 'EmptyStatement' };
         }
+    }
+}
+
+function writeAstToFile(ast) {
+    try {
+        const json = JSON.stringify(ast, null, 2);
+        fs.writeFileSync("./output.json", json, 'utf8');
+        console.log('ast is written')
+    }
+    catch (err) {
+        console.log(err)
     }
 }
 
@@ -135,15 +143,21 @@ walk.traverse(ast, {
     },
 });
 
-const deobfuscatedCode = escodegen.generate(ast);
+writeAstToFile(ast);
+
+const ast_wrapper = my_ast_wrapper(ast);
+
+const deobfuscatedCode = escodegen.generate(ast_wrapper);
 // Assuming you already have the AST
-const compactCode = escodegen.generate(ast, {
+const compactCode = escodegen.generate(ast_wrapper, {
     format: {
         indent: { style: '' },  // Remove indentation
         quotes: 'single',       // Use single quotes for strings
         compact: true,          // Remove unnecessary spaces
     }
 });
+
+
 const links = ['compactdeobfuscated.js', 'deobfuscated.js'];
 links
     .forEach((object) => {
