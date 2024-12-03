@@ -211,7 +211,7 @@ function simplify_const_0x50a6ee(ast) {
 }
 
 
-
+//Simplified version. Check the dialog https://chatgpt.com/c/674f53ad-e1f8-8005-9360-d7f19e645111
 // const isWorker = typeof WorkerGlobalScope !== 'undefined';
 // const isValid = (() => {
 //     try {
