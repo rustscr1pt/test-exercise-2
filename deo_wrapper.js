@@ -1,106 +1,13 @@
 const walk = require('estraverse');
 
-
 /**
- * A function for renaming functions in the AST
- * @param ast
- * @param oldName {string} old name of function which needs to be renamed
- * @param newName {string} new name for function
+ * A function for cleaning and simplifying the inner contents of the return_biggest_array function
+ * a1_0xaf9d
+ * @param ast {AST} parsed Abstract Syntax Tree
  */
-function renameFunction(ast, oldName, newName) {
+function clean_inner_part_of_return_biggest_array_function(ast) {
     walk.replace(ast, {
         enter : function (node) {
-            if (
-                (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') &&
-                node.id &&
-                node.id.name === oldName
-            )
-            {
-                console.log(node);
-                node.id.name = newName;
-            }
-            if (node.type === 'Identifier' && node.name === oldName) {
-                node.name = newName;
-            }
-        }
-    })
-}
-
-/**
- * A function for renaming constants in the AST
- * @param ast
- * @param oldName {string} old name of function which needs to be renamed
- * @param newName {string} new name for function
- */
-function renameConst(ast, oldName, newName) {
-    walk.replace(ast, {
-        enter : function (node) {
-            // Rename the const declaration
-            if (node.type === 'VariableDeclarator' && node.id.name === oldName) {
-                node.id.name = newName;
-            }
-            // Rename all references to the const
-            if (node.type === 'Identifier' && node.name === oldName) {
-                node.name = newName;
-            }
-        }
-    })
-}
-
-/**
- * A function for removing IIFE from return_biggest_array function (START)
- * @param ast
- * @param oldName {string} old name of function which needs to be renamed
- * @param newName {string} new name for function
- */
-function clean_return_biggest_array_from_IIFE(ast) {
-    walk.replace(ast, {
-        enter : function (node) {
-            if (
-                node.type === 'ExpressionStatement' &&
-                node.expression.type === 'CallExpression' &&
-                node.expression.callee.type === 'FunctionExpression'
-            ) {
-                this.remove()
-            }
-        }
-    })
-}
-
-/**
- * A function for removing IIFE from return_biggest_array function (START)
- * @param ast
- * @param oldName {string} old name of function which needs to be renamed
- * @param newName {string} new name for function
- */
-function remove_unused_pieces_after_big_array_function(ast) {
-    walk.replace(ast, {
-        enter : function (node) {
-            if (
-                node.type === 'VariableDeclaration' &&
-                node.declarations.length > 0 &&
-                node.declarations[0].id.name === 'a1_0x564f5d'
-            ) {
-                this.remove()
-            }
-            if (
-                node.type === 'ExpressionStatement' &&
-                node.expression &&
-                node.expression.callee &&
-                node.expression.callee.name &&
-                node.expression.callee.name === 'a1_0x2fa651'
-            ) {
-                this.remove()
-            }
-        }
-    })
-}
-
-
-
-function my_ast_wrapper(ast) {
-    walk.replace(ast, {
-        enter: function (node) {
             // Step 1: Look for the reassignment of the function
             if (node.type === 'FunctionDeclaration') {
                 let reassignmentFound = false;
@@ -156,11 +63,118 @@ function my_ast_wrapper(ast) {
                     }
                 }
             }
+        }
+    })
+}
 
+
+/**
+ * A function for renaming functions in the AST
+ * @param ast {AST} parsed Abstract Syntax Tree
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function renameFunction(ast, oldName, newName) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') &&
+                node.id &&
+                node.id.name === oldName
+            )
+            {
+                console.log(node);
+                node.id.name = newName;
+            }
+            if (node.type === 'Identifier' && node.name === oldName) {
+                node.name = newName;
+            }
+        }
+    })
+}
+
+/**
+ * A function for renaming constants in the AST
+ * @param ast {AST} parsed Abstract Syntax Tree
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function renameConst(ast, oldName, newName) {
+    walk.replace(ast, {
+        enter : function (node) {
+            // Rename the const declaration
+            if (node.type === 'VariableDeclarator' && node.id.name === oldName) {
+                node.id.name = newName;
+            }
+            // Rename all references to the const
+            if (node.type === 'Identifier' && node.name === oldName) {
+                node.name = newName;
+            }
+        }
+    })
+}
+
+/**
+ * A function for removing IIFE from return_biggest_array function (START)
+ * @param ast {AST} parsed Abstract Syntax Tree
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function clean_return_biggest_array_from_IIFE(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression.type === 'CallExpression' &&
+                node.expression.callee.type === 'FunctionExpression'
+            ) {
+                this.remove()
+            }
+        }
+    })
+}
+
+/**
+ * A function for removing IIFE from return_biggest_array function (START)
+ * @param ast {AST} parsed Abstract Syntax Tree
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function remove_unused_pieces_after_big_array_function(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'VariableDeclaration' &&
+                node.declarations.length > 0 &&
+                node.declarations[0].id.name === 'a1_0x564f5d'
+            ) {
+                this.remove()
+            }
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression &&
+                node.expression.callee &&
+                node.expression.callee.name &&
+                node.expression.callee.name === 'a1_0x2fa651'
+            ) {
+                this.remove()
+            }
+        }
+    })
+}
+
+
+/**
+ * My wrapper for cleaning the obfuscated code using AST
+ * @param ast {AST} parsed Abstract Syntax Tree
+ */
+function my_ast_wrapper(ast) {
+    walk.replace(ast, {
+        enter: function (node) {
+            clean_inner_part_of_return_biggest_array_function(ast)
             renameFunction(ast, 'a1_0xaf9d', 'return_biggest_array');
             clean_return_biggest_array_from_IIFE(ast);
             remove_unused_pieces_after_big_array_function(ast);
-
             return node;
         }
     });
