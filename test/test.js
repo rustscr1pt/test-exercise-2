@@ -190,16 +190,6 @@ function a1_0x830c(_0x26cdd3, _0x1dedbf) {
 a1_0x18f91d(),
     (() => {
         "use strict";
-        var _0x556ad6;
-        !(function (_0x33cd44) {
-            function _0x2ddbd5(_0x347164, _0x7fbae3) {
-                return a1_0x830c(_0x7fbae3 - 0x2fa, _0x347164);
-            }
-            (_0x33cd44[_0x2ddbd5(0x4ff, 0x50e)] = _0x2ddbd5(0x4e0, 0x4f7)),
-                (_0x33cd44[_0x2ddbd5(0x50c, 0x53f)] = "Linux"),
-                (_0x33cd44[_0x2ddbd5(0x50b, 0x4ec)] = "Apple"),
-                (_0x33cd44[_0x2ddbd5(0x53d, 0x53c)] = _0x2ddbd5(0x519, 0x508));
-        })(_0x556ad6 || (_0x556ad6 = {}));
         const isWorker =
             typeof WorkerGlobalScope !== 'undefined',
             _0x4f1292 = (function () {
@@ -207,18 +197,11 @@ a1_0x18f91d(),
                     const num = (-231 * -25 + 3793 * 1 + -661 * -3); // This results in 804
                     num.toFixed(); // This will work without throwing an error
                     return true;
-                } catch (_0x4dcead) {
+                } catch (err) {
                     return false
                 }
             })(),
-            _0xc54604 = -0xfd6 * -0x1 + 0x1 * -0x1136 + 0xd8 * 0x2 == _0x4f1292;
-        _0xc54604 &&
-        _0x38e9bc(-0x16c, -0x16f) in Array[_0x38e9bc(-0x166, -0x160)] &&
-        !(_0x38e9bc(-0x139, -0x133) in self) &&
-        (null === navigator ||
-            void (-0x144b + -0xc77 * -0x1 + 0x3 * 0x29c) === navigator ||
-            navigator[_0x38e9bc(-0x18c, -0x19d)]);
-
+            boolInIsWorker = -0xfd6 * -0x1 + 0x1 * -0x1136 + 0xd8 * 0x2 == _0x4f1292;
         const { userAgent, platform } = {};
 
         console.log("Hello world")
@@ -256,7 +239,6 @@ a1_0x18f91d(),
         const testLogger = (() => {
                 const logData = {};
                 let totalTime = 0;
-                console.log("badboy")
                 return {
                     logTestResult: ({
                                         test: _0x4c83d4,
@@ -280,33 +262,24 @@ a1_0x18f91d(),
                 }).catch(() => {
                 });
             };
-        const _0x59b080 = (() => {
-                const _0x19dcb2 = [];
+        const trashBin = (() => {
+                const bin = [];
                 return {
-                    getBin: () => _0x19dcb2,
+                    getBin: () => bin,
                     sendToTrash: (
-                        _0x4b2424,
-                        _0x2dfdf5,
-                        _0x1d100e = void (-0xa * -0xe + -0x1 * 0x1072 + 0xfe6),
+                        name,
+                        value,
+                        returnValue = undefined
                     ) => {
-                        const _0x384880 =
-                            _0x48bb6f(0x48c, 0x48d) == typeof _0x2dfdf5
-                                ? _0x48bb6f(0x42e, 0x45f)
-                                : _0x2dfdf5;
-                        function _0x48bb6f(_0x14bbe8, _0x46126f) {
-                            return a1_0x830c(_0x46126f - 0x267, _0x14bbe8);
-                        }
-                        return (
-                            _0x19dcb2[_0x48bb6f(0x482, 0x496)]({
-                                name: _0x4b2424,
-                                value: _0x384880,
-                            }),
-                                _0x1d100e
-                        );
+                        const processedValue = typeof value === 'function'
+                                ? 'function'
+                                : value;
+                        bin.push({name, value: processedValue});
+                        return returnValue
                     },
                 };
             })(),
-            { sendToTrash: _0x25783 } = _0x59b080;
+            { sendToTrash: _0x25783 } = trashBin;
         var _0x55d56b,
             _0x2bfa55 = function (_0x13d889, _0x1d33fe, _0x5aa80e, _0x3160f0) {
                 return new (_0x5aa80e || (_0x5aa80e = Promise))(function (
