@@ -1,8 +1,27 @@
 const walk = require('estraverse');
 
+function renameFunction(ast, oldName, newName) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression') &&
+                node.id &&
+                node.id.name === oldName
+            )
+            {
+                console.log(node);
+                node.id.name = newName;
+            }
+            if (node.type === 'Identifier' && node.name === oldName) {
+                node.name = newName;
+            }
+        }
+    })
+}
+
 function my_ast_wrapper(ast) {
     walk.replace(ast, {
-        enter: function (node, parent) {
+        enter: function (node) {
             // Step 1: Look for the reassignment of the function
             if (node.type === 'FunctionDeclaration') {
                 let reassignmentFound = false;
@@ -59,87 +78,51 @@ function my_ast_wrapper(ast) {
                 }
             }
 
-            if (node.type === 'ExpressionStatement') {
-                console.log(node);
-                if (node.expression.callee) {
-                    console.log(node.expression.callee);
-                    if (node.expression.callee.type && node.expression.callee.type === 'FunctionExpression') {
-                        let simplifiedValue = 12345; // The simplified calculated value
-                        console.log('!!!!!!!!');
-                        console.log(node.expression.callee.body);
-                        // Replace the while loop with a simplified one
-                        node.expression.callee.body.body = node.expression.callee.body.body.map(statement => {
-                            if (statement.type === 'WhileStatement') {
-                                console.log('Found');
-                                return {
-                                    type: 'WhileStatement',
-                                    test: {
-                                        type: 'BinaryExpression',
-                                        operator: '===',
-                                        left: { type: 'Identifier', name: '_0x4bbcbd' },
-                                        right: {
-                                            type: 'Identifier',
-                                            name: '_0x592d2b'
-                                        }},
-                                        body: {
-                                        type: 'BlockStatement',
-                                            body: [{
-                                                type: 'ExpressionStatement',
-                                                expression: {
-                                                    type: 'AssignmentExpression',
-                                                    operator: '=',
-                                                    left: { type: 'Identifier', name: '_0x4bbcbd' },
-                                                    right: { type: 'Literal', value: simplifiedValue }
-                                                }
-                                            }, {
-                                                type: 'ReturnStatement',
-                                                argument: null
-                                            }]
-                                        }
-                                    };
-                                }
-                                return statement;
-                            });
-                    }
-                }
-            }
+            renameFunction(ast, 'a1_0xaf9d', 'return_biggest_array');
 
-            // if (node.type === 'FunctionDeclaration' && node.body.body.length > 0) {
-            //     let simplifiedValue = 12345; // The simplified calculated value
-            //     // Replace the while loop with a simplified one
-            //     node.body.body = node.body.body.map(statement => {
-            //         if (statement.type === 'WhileStatement') {
-            //             console.log('Found');
-            //             return {
-            //                 type: 'WhileStatement',
-            //                 test: {
-            //                     type: 'BinaryExpression',
-            //                     operator: '===',
-            //                     left: { type: 'Identifier', name: '_0x4bbcbd' },
-            //                     right: {
-            //                         type: 'Identifier',
-            //                         name: '_0x592d2b'
-            //                     }
-            //                 },
-            //                 body: {
-            //                     type: 'BlockStatement',
-            //                     body: [{
-            //                         type: 'ExpressionStatement',
-            //                         expression: {
-            //                             type: 'AssignmentExpression',
-            //                             operator: '=',
+            // if (node.type === 'ExpressionStatement') {
+            //     console.log(node);
+            //     if (node.expression.callee) {
+            //         console.log(node.expression.callee);
+            //         if (node.expression.callee.type && node.expression.callee.type === 'FunctionExpression') {
+            //             let simplifiedValue = 12345; // The simplified calculated value
+            //             console.log('!!!!!!!!');
+            //             console.log(node.expression.callee.body);
+            //             // Replace the while loop with a simplified one
+            //             node.expression.callee.body.body = node.expression.callee.body.body.map(statement => {
+            //                 if (statement.type === 'WhileStatement') {
+            //                     console.log('Found');
+            //                     return {
+            //                         type: 'WhileStatement',
+            //                         test: {
+            //                             type: 'BinaryExpression',
+            //                             operator: '===',
             //                             left: { type: 'Identifier', name: '_0x4bbcbd' },
-            //                             right: { type: 'Literal', value: simplifiedValue }
-            //                         }
-            //                     }, {
-            //                         type: 'ReturnStatement',
-            //                         argument: null
-            //                     }]
-            //                 }
-            //             };
+            //                             right: {
+            //                                 type: 'Identifier',
+            //                                 name: '_0x592d2b'
+            //                             }},
+            //                             body: {
+            //                             type: 'BlockStatement',
+            //                                 body: [{
+            //                                     type: 'ExpressionStatement',
+            //                                     expression: {
+            //                                         type: 'AssignmentExpression',
+            //                                         operator: '=',
+            //                                         left: { type: 'Identifier', name: '_0x4bbcbd' },
+            //                                         right: { type: 'Literal', value: simplifiedValue }
+            //                                     }
+            //                                 }, {
+            //                                     type: 'ReturnStatement',
+            //                                     argument: null
+            //                                 }]
+            //                             }
+            //                         };
+            //                     }
+            //                     return statement;
+            //                 });
             //         }
-            //         return statement;
-            //     });
+            //     }
             // }
             return node;
         }
