@@ -280,65 +280,36 @@ a1_0x18f91d(),
                 };
             })(),
             { sendToTrash: _0x25783 } = trashBin;
+
         var _0x55d56b,
-            _0x2bfa55 = function (_0x13d889, _0x1d33fe, _0x5aa80e, _0x3160f0) {
-                return new (_0x5aa80e || (_0x5aa80e = Promise))(function (
-                    _0x513d7c,
-                    _0x2cef45,
-                ) {
-                    function _0x3b9962(_0x150470) {
-                        function _0x4301a0(_0x51eafe, _0xc66c8a) {
-                            return a1_0x830c(_0xc66c8a - -0x4f, _0x51eafe);
-                        }
+            asyncRunner = function (generatorFunc, args, PromiseImplementation = Promise) {
+                return new PromiseImplementation((resolve, reject) => {
+                    const iterator = generatorFunc.apply(null, args || []);
+                    function handleNextStep(step) {
                         try {
-                            _0x31ec40(_0x3160f0[_0x4301a0(0x1e9, 0x1ca)](_0x150470));
-                        } catch (_0x2bf1d4) {
-                            _0x2cef45(_0x2bf1d4);
+                            if (step.done) {
+                                resolve(step.value);
+                            } else {
+                                PromiseImplementation.resolve(step.value).then(
+                                    (result) => handleNextStep(iterator.next(result)),
+                                    (error) => handleNextStep(iterator.throw(error))
+                                );
+                            }
+                        } catch (error) {
+                            reject(error);
                         }
                     }
-                    function _0x237e85(_0x58ca7f) {
-                        function _0x2407d8(_0x3e88dc, _0x2d8421) {
-                            return a1_0x830c(_0x3e88dc - -0x3de, _0x2d8421);
-                        }
-                        try {
-                            _0x31ec40(_0x3160f0[_0x2407d8(-0x1c8, -0x1bc)](_0x58ca7f));
-                        } catch (_0x993c03) {
-                            _0x2cef45(_0x993c03);
-                        }
-                    }
-                    function _0x31ec40(_0xfa99b6) {
-                        function _0x20b5b0(_0x250dbd, _0x161c24) {
-                            return a1_0x830c(_0x250dbd - 0x23b, _0x161c24);
-                        }
-                        var _0xa513b9;
-                        _0xfa99b6[_0x20b5b0(0x473, 0x493)]
-                            ? _0x513d7c(_0xfa99b6[_0x20b5b0(0x470, 0x463)])
-                            : ((_0xa513b9 = _0xfa99b6[_0x20b5b0(0x470, 0x484)]),
-                                _0xa513b9 instanceof _0x5aa80e
-                                    ? _0xa513b9
-                                    : new _0x5aa80e(function (_0x32faf5) {
-                                        _0x32faf5(_0xa513b9);
-                                    }))["then"](_0x3b9962, _0x237e85);
-                    }
-                    function _0x46e24c(_0x328020, _0x1afec2) {
-                        return a1_0x830c(_0x328020 - 0x5b, _0x1afec2);
-                    }
-                    _0x31ec40(
-                        (_0x3160f0 = _0x3160f0[_0x46e24c(0x26e, 0x274)](
-                            _0x13d889,
-                            _0x1d33fe || [],
-                        ))["next"](),
-                    );
+                    handleNextStep(iterator.next());
                 });
             };
         function _0x157db6() {
-            return _0x2bfa55(
+            return asyncRunner(
                 this,
                 void (0x1838 + 0x14dc + -0x2d14),
                 void (0x6 * -0x563 + -0xdfa + -0x2 * -0x1726),
                 function* () {
                     const _0x273c2f = (_0x32e916) =>
-                            _0x2bfa55(
+                            asyncRunner(
                                 this,
                                 void (0x7d4 + -0x2567 + 0x1d93),
                                 void (-0x1262 + 0x25c3 + 0x1c3 * -0xb),
@@ -415,7 +386,7 @@ a1_0x18f91d(),
                                 },
                             ),
                         _0x5342af = () =>
-                            _0x2bfa55(
+                            asyncRunner(
                                 this,
                                 void (0x15d * 0x4 + -0x1 * 0x87f + 0x1 * 0x30b),
                                 void (0x7 * -0x361 + 0x6 * 0x5f2 + -0xc05),
