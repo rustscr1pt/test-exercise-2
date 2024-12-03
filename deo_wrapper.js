@@ -163,6 +163,70 @@ function remove_unused_pieces_after_big_array_function(ast) {
     })
 }
 
+/**
+ * A function for removing const_a1_0xbb9841 not sure if it is used ???
+ * @param ast {AST} parsed Abstract Syntax Tree
+ */
+function remove_unused_const_a1_0xbb9841(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'VariableDeclaration' &&
+                node.declarations.length > 0 &&
+                node.declarations[0].id.name === 'a1_0xbb9841'
+            ) {
+                this.remove()
+            }
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression &&
+                node.expression.callee &&
+                node.expression.callee.name &&
+                node.expression.callee.name === 'a1_0xbb9841'
+            ) {
+                this.remove()
+            }
+        }
+    })
+}
+
+/**
+ * A function for simplifying the const _0x50a6ee
+ * @param ast {AST} parsed Abstract Syntax Tree
+ */
+function simplify_const_0x50a6ee(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression &&
+                node.expression.length > 1 &&
+                node.expression.expressions
+
+            ) {
+
+            }
+        }
+    })
+}
+
+
+
+// const isWorker = typeof WorkerGlobalScope !== 'undefined';
+// const isValid = (() => {
+//     try {
+//         const num = (-231 * -25 + 3793 * 1 + -661 * -3); // This results in 804
+//         num.toFixed(); // This will work without throwing an error
+//         return true;
+//     } catch (error) {
+//         return false;
+//     }
+// })();
+//
+// const comparisonResult = 804 == isValid; // Checking if 804 equals isValid
+
+
+
 
 /**
  * My wrapper for cleaning the obfuscated code using AST
@@ -175,6 +239,7 @@ function my_ast_wrapper(ast) {
             renameFunction(ast, 'a1_0xaf9d', 'return_biggest_array');
             clean_return_biggest_array_from_IIFE(ast);
             remove_unused_pieces_after_big_array_function(ast);
+            remove_unused_const_a1_0xbb9841(ast);
             return node;
         }
     });
