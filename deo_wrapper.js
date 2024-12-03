@@ -1,5 +1,12 @@
 const walk = require('estraverse');
 
+
+/**
+ * A function for renaming functions in the AST
+ * @param ast
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
 function renameFunction(ast, oldName, newName) {
     walk.replace(ast, {
         enter : function (node) {
@@ -18,6 +25,49 @@ function renameFunction(ast, oldName, newName) {
         }
     })
 }
+
+/**
+ * A function for renaming constants in the AST
+ * @param ast
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function renameConst(ast, oldName, newName) {
+    walk.replace(ast, {
+        enter : function (node) {
+            // Rename the const declaration
+            if (node.type === 'VariableDeclarator' && node.id.name === oldName) {
+                node.id.name = newName;
+            }
+            // Rename all references to the const
+            if (node.type === 'Identifier' && node.name === oldName) {
+                node.name = newName;
+            }
+        }
+    })
+}
+
+/**
+ * A function for removing IIFE from return_biggest_array function (START)
+ * @param ast
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function clean_return_biggest_array_from_IIFE(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression.type === 'CallExpression' &&
+                node.expression.callee.type === 'FunctionExpression'
+            ) {
+                this.remove()
+            }
+        }
+    })
+}
+
+
 
 function my_ast_wrapper(ast) {
     walk.replace(ast, {
@@ -79,51 +129,8 @@ function my_ast_wrapper(ast) {
             }
 
             renameFunction(ast, 'a1_0xaf9d', 'return_biggest_array');
+            clean_return_biggest_array_from_IIFE(ast);
 
-            // if (node.type === 'ExpressionStatement') {
-            //     console.log(node);
-            //     if (node.expression.callee) {
-            //         console.log(node.expression.callee);
-            //         if (node.expression.callee.type && node.expression.callee.type === 'FunctionExpression') {
-            //             let simplifiedValue = 12345; // The simplified calculated value
-            //             console.log('!!!!!!!!');
-            //             console.log(node.expression.callee.body);
-            //             // Replace the while loop with a simplified one
-            //             node.expression.callee.body.body = node.expression.callee.body.body.map(statement => {
-            //                 if (statement.type === 'WhileStatement') {
-            //                     console.log('Found');
-            //                     return {
-            //                         type: 'WhileStatement',
-            //                         test: {
-            //                             type: 'BinaryExpression',
-            //                             operator: '===',
-            //                             left: { type: 'Identifier', name: '_0x4bbcbd' },
-            //                             right: {
-            //                                 type: 'Identifier',
-            //                                 name: '_0x592d2b'
-            //                             }},
-            //                             body: {
-            //                             type: 'BlockStatement',
-            //                                 body: [{
-            //                                     type: 'ExpressionStatement',
-            //                                     expression: {
-            //                                         type: 'AssignmentExpression',
-            //                                         operator: '=',
-            //                                         left: { type: 'Identifier', name: '_0x4bbcbd' },
-            //                                         right: { type: 'Literal', value: simplifiedValue }
-            //                                     }
-            //                                 }, {
-            //                                     type: 'ReturnStatement',
-            //                                     argument: null
-            //                                 }]
-            //                             }
-            //                         };
-            //                     }
-            //                     return statement;
-            //                 });
-            //         }
-            //     }
-            // }
             return node;
         }
     });
