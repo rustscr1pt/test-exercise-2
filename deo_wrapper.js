@@ -67,6 +67,35 @@ function clean_return_biggest_array_from_IIFE(ast) {
     })
 }
 
+/**
+ * A function for removing IIFE from return_biggest_array function (START)
+ * @param ast
+ * @param oldName {string} old name of function which needs to be renamed
+ * @param newName {string} new name for function
+ */
+function remove_unused_pieces_after_big_array_function(ast) {
+    walk.replace(ast, {
+        enter : function (node) {
+            if (
+                node.type === 'VariableDeclaration' &&
+                node.declarations.length > 0 &&
+                node.declarations[0].id.name === 'a1_0x564f5d'
+            ) {
+                this.remove()
+            }
+            if (
+                node.type === 'ExpressionStatement' &&
+                node.expression &&
+                node.expression.callee &&
+                node.expression.callee.name &&
+                node.expression.callee.name === 'a1_0x2fa651'
+            ) {
+                this.remove()
+            }
+        }
+    })
+}
+
 
 
 function my_ast_wrapper(ast) {
@@ -130,6 +159,7 @@ function my_ast_wrapper(ast) {
 
             renameFunction(ast, 'a1_0xaf9d', 'return_biggest_array');
             clean_return_biggest_array_from_IIFE(ast);
+            remove_unused_pieces_after_big_array_function(ast);
 
             return node;
         }

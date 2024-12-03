@@ -167,4 +167,4 @@ links
 fs.writeFileSync('./cleaned/compactdeobfuscated.js', compactCode, 'utf8');
 fs.writeFileSync('./cleaned/deobfuscated.js', deobfuscatedCode, 'utf8');
 
-//fs.writeFileSync('output.json', JSON.stringify(ast, null, 2), 'utf-8');
+fs.writeFileSync('output-new.json', JSON.stringify(ast, null, 2), 'utf-8');
