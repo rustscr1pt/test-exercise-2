@@ -108,20 +108,6 @@ function a1_0xaf9d() {
     ];
     return _0x44cecb;
 }
-const a1_0x564f5d = (function () {
-        let _0x8d75 = !![];
-        return function (_0x1ce344, _0xd710d1) {
-            const _0x32aacc = _0x8d75
-                ? function () {
-                    if (_0xd710d1) {
-                        const _0xb771e9 = _0xd710d1["apply"](_0x1ce344, arguments);
-                        return (_0xd710d1 = null), _0xb771e9;
-                    }
-                }
-                : function () {};
-            return (_0x8d75 = ![]), _0x32aacc;
-        };
-    })();
 
 const a1_0xbb9841 = (function () {
         let _0x2d3742 = !![];
@@ -620,21 +606,21 @@ a1_0x18f91d(),
                 },
             );
         }
-        !(function (_0x56ed79) {
-            function _0x32ab3c(_0x44620d, _0x5ecd3b) {
-                return _0x38e9bc(_0x5ecd3b - 0x70b, _0x44620d);
+        (function (config) {
+            function calculateOffset(value1, value2) {
+                return _0x38e9bc(value2 - 0x70b, value1);
             }
-            (_0x56ed79[
-                (_0x56ed79[_0x32ab3c(0x59f, 0x582)] = -0x20c1 + 0x1c15 + 0x4ac)
+            (config[
+                (config[calculateOffset(0x59f, 0x582)] = -0x20c1 + 0x1c15 + 0x4ac)
                 ] = "WORKER"),
-                (_0x56ed79[
-                    (_0x56ed79["WINDOW"] = 0x1 * -0x3af + 0x1582 * -0x1 + -0x2b * -0x96)
-                    ] = _0x32ab3c(0x5dd, 0x5c8));
+                (config[
+                    (config["WINDOW"] = 0x1 * -0x3af + 0x1582 * -0x1 + -0x2b * -0x96)
+                    ] = calculateOffset(0x5dd, 0x5c8));
         })(_0x55d56b || (_0x55d56b = {}));
         function _0x38e9bc(_0x11e3a7, _0x58eb1e) {
             return a1_0x830c(_0x11e3a7 - -0x36b, _0x58eb1e);
         }
-        !(function () {
+        (function () {
             var _0x1edc5e, _0x4af707, _0x15a13d, _0x5c2dcb;
             (_0x1edc5e = this),
                 (_0x4af707 = void (-0x2446 + 0x1 * -0x1875 + 0x8ad * 0x7)),
@@ -651,14 +637,14 @@ a1_0x18f91d(),
                             return a1_0x830c(_0x4392f4 - -0x397, _0xd55487);
                         }
                         try {
-                            _0x163adf(_0x5c2dcb[_0x19c533(-0x17e, -0x199)](_0xedd68c));
+                            hadleAsyncResult(_0x5c2dcb[_0x19c533(-0x17e, -0x199)](_0xedd68c));
                         } catch (_0x390da0) {
                             _0x1011ca(_0x390da0);
                         }
                     }
                     function _0x172841(_0x5d7393) {
                         try {
-                            _0x163adf(_0x5c2dcb["throw"](_0x5d7393));
+                            hadleAsyncResult(_0x5c2dcb["throw"](_0x5d7393));
                         } catch (_0x395c84) {
                             _0x1011ca(_0x395c84);
                         }
@@ -666,26 +652,26 @@ a1_0x18f91d(),
                     function _0x206310(_0x30d070, _0x176cfa) {
                         return a1_0x830c(_0x176cfa - -0x22b, _0x30d070);
                     }
-                    function _0x163adf(_0x301b0b) {
+                    function hadleAsyncResult(result) {
                         var _0x190579;
                         function _0x160050(_0x31da90, _0x1cb2fb) {
                             return a1_0x830c(_0x31da90 - -0x3c4, _0x1cb2fb);
                         }
-                        _0x301b0b["done"]
-                            ? _0x498203(_0x301b0b["value"])
-                            : ((_0x190579 = _0x301b0b[_0x160050(-0x18f, -0x198)]),
+                        result["done"]
+                            ? _0x498203(result["value"])
+                            : ((_0x190579 = result[_0x160050(-0x18f, -0x198)]),
                                 _0x190579 instanceof _0x15a13d
                                     ? _0x190579
                                     : new _0x15a13d(function (_0x3178a2) {
                                         _0x3178a2(_0x190579);
                                     }))[_0x160050(-0x1b7, -0x1e2)](_0x34e550, _0x172841);
                     }
-                    // _0x163adf(
-                    //     (_0x5c2dcb = _0x5c2dcb[_0x206310(-0x2, -0x18)](
-                    //         _0x1edc5e,
-                    //         _0x4af707 || [],
-                    //     ))[_0x206310(-0x16, -0x12)](),
-                    // );
+                    hadleAsyncResult(
+                        (_0x5c2dcb = _0x5c2dcb[_0x206310(-0x2, -0x18)](
+                            _0x1edc5e,
+                            _0x4af707 || [],
+                        ))[_0x206310(-0x16, -0x12)](),
+                    );
                 });
         })();
     })();
