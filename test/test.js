@@ -1,4 +1,4 @@
-function a1_0xaf9d() {
+function return_string_array() {
     const _0x44cecb = [
         "DisplayNames",
         "function",
@@ -108,9 +108,8 @@ function a1_0xaf9d() {
     ];
     return _0x44cecb;
 }
-
 const a1_0xbb9841 = (function () {
-        let _0x2d3742 = !![];
+        let _0x2d3742 = !![]; //////////////////
         return function (_0x3032bf, _0x1fe55a) {
             const _0x445530 = _0x2d3742
                 ? function () {
@@ -120,54 +119,18 @@ const a1_0xbb9841 = (function () {
             return (_0x2d3742 = ![]), _0x445530;
         };
     })(),
-    a1_0x18f91d = a1_0xbb9841(this, function () {
-        let _0x20a1aa;
-        try {
-            const _0x2dd6a4 = Function(
-                _0x57e3e7(0x50, 0x55) + _0x57e3e7(0xcf, 0x9f) + ");",
-            );
-            _0x20a1aa = _0x2dd6a4();
-        } catch (_0x5eb9ab) {
-            _0x20a1aa = window;
-        }
-        function _0x57e3e7(_0x522330, _0x52d0e7) {
-            return a1_0x830c(_0x52d0e7 - -0x19e, _0x522330);
-        }
-        const _0x517332 = (_0x20a1aa[_0x57e3e7(0x3a, 0x6d)] =
-                _0x20a1aa[_0x57e3e7(0x82, 0x6d)] || {}),
-            _0x203efe = [
-                "log",
-                _0x57e3e7(0xa5, 0x90),
-                _0x57e3e7(0x56, 0x5e),
-                _0x57e3e7(0xc9, 0x96),
-                _0x57e3e7(0x6b, 0x9c),
-                _0x57e3e7(0xaf, 0x82),
-                _0x57e3e7(0x9a, 0x6a),
-            ];
-        for (
-            let _0x48f317 = 0xa2b * -0x1 + -0x1f41 + 0x296c;
-            _0x48f317 < _0x203efe[_0x57e3e7(0x80, 0x52)];
-            _0x48f317++
-        ) {
-            const _0x396547 =
-                    a1_0xbb9841[_0x57e3e7(0x82, 0x68)][_0x57e3e7(0x90, 0x67)]["bind"](
-                        a1_0xbb9841,
-                    ),
-                _0x341eae = _0x203efe[_0x48f317],
-                _0x1238c3 = _0x517332[_0x341eae] || _0x396547;
-            (_0x396547[_0x57e3e7(0x53, 0x4f)] =
-                a1_0xbb9841[_0x57e3e7(0x47, 0x48)](a1_0xbb9841)),
-                (_0x396547[_0x57e3e7(0x43, 0x45)] =
-                    _0x1238c3[_0x57e3e7(0x37, 0x45)][_0x57e3e7(0x2f, 0x48)](_0x1238c3)),
-                (_0x517332[_0x341eae] = _0x396547);
-        }
+    a1_0x18f91d = a1_0xbb9841(this, function () { // 1CROP
+
     });
+
+console.log('breakpoint');
 function a1_0x830c(_0x26cdd3, _0x1dedbf) {
-    const _0x2fa651 = a1_0xaf9d();
+    const _0x2fa651 = return_string_array();
     return (
         (a1_0x830c = function (_0x564f5d, _0xaf9df2) {
             _0x564f5d = _0x564f5d - (0x1d4d + -0x1a1c + -0x153);
             let _0x830ca6 = _0x2fa651[_0x564f5d];
+            console.log('check');
             return _0x830ca6;
         }),
             a1_0x830c(_0x26cdd3, _0x1dedbf)
@@ -189,8 +152,6 @@ a1_0x18f91d(),
             })(),
             boolInIsWorker = -0xfd6 * -0x1 + 0x1 * -0x1136 + 0xd8 * 0x2 == _0x4f1292;
         const { userAgent, platform } = {};
-
-        console.log("Hello world")
 
         const [deviceType, osType] = (function detectDeviceAndOS(userAgent, platform) {
             const SYSTEM_TYPES = {
